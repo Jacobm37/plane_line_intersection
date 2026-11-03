@@ -33,3 +33,10 @@ The trade-off: results are returned as objects rather than raised exceptions. A 
 - **Floating-point near-parallelism**: uses a relative tolerance (`1e-9`) so near-parallel lines are treated as parallel rather than producing wildly unstable points.
 
 No third-party dependencies. Standard library only.
+
+## Design notes
+
+The window stores values eagerly rather than keeping running aggregates. Running
+sums drift with floating point over long streams, and recomputing from a small
+buffer is cheap enough that the drift is not worth the speed.
+
